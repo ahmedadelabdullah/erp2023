@@ -9,39 +9,46 @@
     <div class="card-body register-card-body">
       <p class="login-box-msg">Register a new membership</p>
 
-      <form action="../../index.html" method="post">
+      <form action="{{route('admin.register')}}" method="post">
+        @csrf
         <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="Full name">
+          <input type="text" class="form-control" placeholder="Full name" name="name" :value="old('name')"  required autofocus autocomplete="name">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-user"></span>
             </div>
           </div>
+
         </div>
+        <x-input-error :messages="$errors->get('name')" class="mt-2" />
         <div class="input-group mb-3">
-          <input type="email" class="form-control" placeholder="Email">
+          <input type="email" class="form-control" placeholder="Email" name="email" :value="old('email')" required autocomplete="username" >
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
             </div>
           </div>
         </div>
+        <x-input-error :messages="$errors->get('email')" class="mt-2" />
         <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="Password">
+          <input type="password" id="password" class="form-control" placeholder="Password" name="password"  required autocomplete="new-password">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
             </div>
           </div>
         </div>
+        <x-input-error :messages="$errors->get('password')" class="mt-2" />
+
         <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="Retype password">
+          <input type="password" id="password_confirmation" class="form-control" placeholder="Retype password" name="retype_password" required autocomplete="new-password">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
             </div>
           </div>
         </div>
+        <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
         <div class="row">
           <div class="col-8">
             <div class="icheck-primary">

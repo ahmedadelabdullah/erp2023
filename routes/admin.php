@@ -24,22 +24,25 @@ use Illuminate\Support\Facades\Route;
 //});
 
 
-Route::namespace('\App\Http\Controllers\Admin')->prefix('admin')->group(function (){
-    Route::resource('adminlogin' , AdminLoginController::class);
-    Route::resource('adminregister' , AdminRegisterController::class);
-    Route::resource('admin' , AdminController::class);
+Route::namespace('\App\Http\Controllers\Admin')->name('admin.')->prefix('admin')->group(function (){
+//    Route::resource('/dashboard' , AdminController::class);
+    Route::middleware('Admin')->group(function (){
+    Route::view('/dashboard' , 'admin.index')->name('dashboard');
+    });
+
+    require __DIR__.'/admin_auth.php';
 });
 
 
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+//Route::get('/dashboard', function () {
+//    return view('dashboard');
+//})->middleware(['auth', 'verified'])->name('dashboard');
+//
+//Route::middleware('auth')->group(function () {
+//    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+//    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+//    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+//});
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
 
-require __DIR__.'/auth.php';
